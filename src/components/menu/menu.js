@@ -1,4 +1,4 @@
-import React, { createRef } from 'react'
+import React from 'react'
 import { Card, Col, Tabs } from 'antd';
 import { FormatPainterOutlined, SettingOutlined } from '@ant-design/icons'
 import { Setting, Design } from '../'
@@ -7,15 +7,12 @@ import { Setting, Design } from '../'
 const Menu = React.forwardRef((props, ref) => {
   const { TabPane } = Tabs
 
-  function callback(key) {
-    console.log(key);
-  }
 
   const svgStyles = {
     fontSize: '1.5rem',
     width: '100%',
   }
-
+  
   return (
     <div ref={ref}>
       <Card
@@ -32,7 +29,6 @@ const Menu = React.forwardRef((props, ref) => {
         <Tabs
           centered
           defaultActiveKey="1"
-          onChange={callback}
           tabBarStyle={{
             color: '#BDBDBD',
           }}
@@ -57,24 +53,4 @@ const Menu = React.forwardRef((props, ref) => {
   )
 });
 
-
 export default Menu
-// title={
-  //   <Row style={{
-  //     textAlign: 'center',
-  //     height: '100%'
-  //   }}>
-  //     <Col span={12}>
-
-  //       <SettingOutlined style={svgStyles} onClick={() => setTab(true)}/>
-
-  //     </Col>
-  //     <Col span={12}>
-  //       <FormatPainterOutlined style={svgStyles} onClick={() => setTab(false)}/>
-  //     </Col>
-  //   </Row>
-  // }
-  // headStyle={{
-  //   justifyContent: 'space-between',
-
-  // }}

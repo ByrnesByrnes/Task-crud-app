@@ -1,6 +1,6 @@
 import React from 'react'
-import { Layout } from 'antd'
-
+import { Layout, Space } from 'antd'
+import { S, P, AThin, GThin, TThin, MThin, SThin } from '../logo'
 
 export default function Header() {
 
@@ -8,7 +8,10 @@ export default function Header() {
 
   return (
     <Header className="header">
-      <span className="header__logo">SGS</span>asgmt
+      <Space size={5}>
+        <S /><P /><S />
+        <AThin /><SThin /><GThin /><MThin style={{marginLeft: '2px'}}/><TThin />
+      </Space>
     </Header>
   )
 

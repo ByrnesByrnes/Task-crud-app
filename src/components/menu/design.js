@@ -6,22 +6,20 @@ import { DesignSub } from '../'
 export default function Design({task}) {
   const [state, dispatch] = StateContext()
   const [inputs, setInputs] = useState({
-    titleSize: 32,
-    titleColor: { hex:'#0E2748'},
-    descriptionSize: 16,
-    descriptionColor: {hex: '#4F4F4F' },
-    panelRadius: 16,
-    panelColor: {hex: '#fff'}
+    titleSize: 0,
+    titleColor: { hex: ''},
+    descriptionSize: 0,
+    descriptionColor: {hex: '' },
+    panelRadius: 0,
+    panelColor: {hex: ''}
   })
 
-  const {id} = task
-
-  const handleChange = e => setInputs({...inputs, [e.target.name]: e.target.value}) 
+  const handleChange = e => setInputs({...inputs, ...task, [e.target.name]: e.target.value}) 
   
   // get attribute for key: color figure out eventually
-  const handleTitleColor = (color) => setInputs({...inputs, titleColor: color})
-  const handleDescriptionColor = (color) => setInputs({...inputs, descriptionColor: color})
-  const handlePanelColor = (color) => setInputs({...inputs, panelColor: color})
+  const handleTitleColor = (color) => setInputs({...inputs, ...task, titleColor: color})
+  const handleDescriptionColor = (color) => setInputs({...inputs,...task, descriptionColor: color})
+  const handlePanelColor = (color) => setInputs({...inputs, ...task, panelColor: color})
 
 
   // Rerender if value changes in task
@@ -29,36 +27,16 @@ export default function Design({task}) {
     dispatch({
       type: 'EDIT_TASK',
       payload: {
-        ...task,
-        titleSize: inputs.titleSize.length !== 0 ? inputs.titleSize : 32,
+        titleSize: inputs.titleSize,
         titleColor: inputs.titleColor,
-        descriptionSize: inputs.descriptionSize.length !== 0 ? inputs.descriptionSize : 16,
+        descriptionSize:inputs.descriptionSize,
         descriptionColor: inputs.descriptionColor,
-        panelRadius: inputs.panelRadius.length !== 0 ? inputs.panelRadius : 16,
+        panelRadius: inputs.panelRadius,
         panelColor: inputs.panelColor,
-        id
+        ...inputs,
       }
     })
   },[inputs, dispatch])
-  // onSwatchHover 
-  useEffect(() => {
-    dispatch({
-      type: 'EDIT_TASK',
-      payload: {
-        ...task
-      }
-    })
-  },[])
-
-
-  const { 
-    titleSize, 
-    titleColor, 
-    descriptionSize ,
-    descriptionColor,
-    panelRadius,
-    panelColor
-  } = inputs
 
   return (
 
@@ -67,18 +45,18 @@ export default function Design({task}) {
       name="Title"
       keyValue="titleSize"
       task={task} 
-      textSize={titleSize} 
-      textColor={titleColor}
+      textSize={task.titleSize} 
+      textColor={task.titleColor}
       handleChange={handleChange} 
       handleColor={handleTitleColor}
-
+      setInputs={setInputs}
     />
     <DesignSub 
       name="Body"
       keyValue="descriptionSize"
       task={task} 
-      textSize={descriptionSize} 
-      textColor={descriptionColor}
+      textSize={task.descriptionSize} 
+      textColor={task.descriptionColor}
       handleChange={handleChange} 
       handleColor={handleDescriptionColor}
 
@@ -87,9 +65,8 @@ export default function Design({task}) {
       name="Panel"
       keyValue="panelRadius"
       task={task} 
-      textSize={panelRadius} 
-      textColor={panelColor}
-
+      textSize={task.panelRadius} 
+      textColor={task.panelColor}
       handleChange={handleChange} 
       handleColor={handlePanelColor}
       subtitle="Corner Radius"

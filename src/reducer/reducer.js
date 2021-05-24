@@ -2,10 +2,10 @@ export const state = {
   tasks: [
     {
       id: 1,
-      title: 'Custom Title',
+      title: '',
       titleColor: { hex: '#0E2748'},
-      titleSize: 32,
-      description: 'Custom body text',
+      titleSize: 36,
+      description: '',
       descriptionSize: 16,
       descriptionColor: { hex: '#4F4F4F'},
       panelRadius: 16,
@@ -19,20 +19,21 @@ export const reducer = (state, action) => {
   const index = state.tasks.findIndex(item => item.id === action.payload.id)
 
   switch (action.type) {
-    case 'COPY_TASK':
-
+    case 'COPY_TASK': 
+  
       return state = {
-        ...state, tasks: [...state.tasks, {
-          ...action.payload,
-          // id: state.tasks.length >= 1 ? state.tasks[0].id + 1: 1
-          id: Math.floor(Math.random() * 100000)
-        }]
+        ...state, tasks: [...state.tasks,{
+            ...action.payload,
+            id: Math.floor(Math.random() * 100000)
+          }]
       }
+      // id: state.tasks.length >= 1 ? state.tasks[0].id + 1: 1
 
     case 'EDIT_TASK':
-      // console.log(action.payload, "Payload Id")
-      state.tasks[index] = { ...action.payload }
-      return state = { ...state }
+      const taskk = [...state.tasks]
+
+      taskk[index] = {...action.payload}
+      return state = { ...state, tasks: [...taskk] }
 
     case 'DELETE_TASK':
       const newTasks = [...state.tasks]
@@ -40,7 +41,7 @@ export const reducer = (state, action) => {
       // Check if index returns 0 or greater remove that index
       index >= 0 ? newTasks.splice(index, 1) : console.warn(`Task ${action.payload.id}: does not exist`)
       
-      return {...state, tasks: newTasks}
+      return {...state, tasks: [...newTasks]}
     default:
       return state
   }

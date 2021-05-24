@@ -14,13 +14,13 @@ export default function Task({task}) {
     setToggle(false)
   })
 
-  const handleCopy = e => {
+  const handleCopy = () => {
     dispatch({
       type: 'COPY_TASK',
       payload: task
     })
   }
-
+ 
   const handleDelete = () => {
     dispatch({
       type: 'DELETE_TASK',
@@ -30,13 +30,14 @@ export default function Task({task}) {
     })
   }
 
+
   const svgStyles= {
     fontSize: '1.5em', 
   }
 
   const titleStyles = {
     fontSize: `${task.titleSize}px`,
-    color: task.titleColor.hex 
+    color: task.titleColor.hex
   }
 
   const descriptionStyles = {
@@ -45,14 +46,16 @@ export default function Task({task}) {
   }
   const cardStyles = {
     borderRadius: `${task.panelRadius}px`,
-    backgroundColor: task.panelColor.hex
+    backgroundColor: task.panelColor.hex,
+    border: `1px solid ${toggle ? '#00A3FF' : task.panelColor.hex}`,
+    boxShadow:  `0px 4px 24px ${toggle ? 'rgba(0, 163, 255, 0.14)' : 'rgba(0, 0, 0, 0.04)' }`,
+    marginBottom: '1.5em'
   }
 
   return (
     <Card
-      
       className="task" 
-      title={<h1 style={titleStyles}>{task.title}</h1>} 
+      title={<h1 style={titleStyles}>{task.title ? task.title : 'Custom Title'}</h1>} 
       bordered={false}
       headStyle={{
         padding: 0,
@@ -60,19 +63,18 @@ export default function Task({task}) {
       }}
       style={cardStyles}
       extra={
-        
         <Space size={25}>
           <EditTwoTone style={svgStyles} onClick={()=> setToggle(!toggle)}/>
           <CopyTwoTone onClick={handleCopy} style={svgStyles}/>
           {state.tasks.length !== 1 ? 
             <DeleteTwoTone onClick={handleDelete} style={svgStyles} /> : 
-            <DeleteTwoTone twoToneColor="#E0E0E0" style={svgStyles} /> 
+            <DeleteTwoTone className="delete-disabled" twoToneColor="#E0E0E0" style={svgStyles} /> 
           }
         </Space>
         
       }
     >
-      <p style={descriptionStyles} className="task__content">{task.description}</p>
+      <p style={descriptionStyles} className="task__content">{task.description ? task.description : 'Custom body text'}</p>
       <Menu toggle={toggle} ref={domNode} task={task}/>
     </Card>
   )

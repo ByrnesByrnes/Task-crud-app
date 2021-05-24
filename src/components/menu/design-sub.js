@@ -13,10 +13,8 @@ const titleStyles = {
   fontSize: '1.125rem',
 }
 
-
-
 export default function DesignSub({
-  task, textSize, textColor, handleChange, handleColor, name, subtitle = "size", keyValue
+  task, textSize, textColor, handleChange, handleColor, name, subtitle = "size", keyValue, setInputs
 }) {
   const [state, dispatch] = StateContext()
   const [toggle, setToggle] = useState(false)
@@ -30,6 +28,7 @@ export default function DesignSub({
 
   const domNode = UseClickOutside(() => {
     setToggle(false)
+    
   })
 
   // Rerender if value changes in task
@@ -37,9 +36,9 @@ export default function DesignSub({
     dispatch({
       type: 'EDIT_TASK',
       payload: {
-        ...task,
         [textSize]: textSize > 0 ? textSize : task[textSize],
         [textColor]: textColor,
+        ...task,
         id
       }
     })
@@ -53,7 +52,7 @@ export default function DesignSub({
       }
     })
   }, [])
-
+ 
   return (
     // In Mock up design is offset by 3 pixels
     <Col 
@@ -70,13 +69,15 @@ export default function DesignSub({
           <div className="input-box" style={{marginRight: '1.5em'}}>
             <label className="input-box__label">{subtitle}</label>
             <Input
+              className="design__input"
               type="number"
-              placeholder=" "
+              placeholder=""
               name={keyValue}
               value={textSize}
               style={inputStyles}
               onChange={handleChange}
             />
+            <span className="input-box__pixel" style={{left: `calc(1em + ${Number(textSize?.toString().length) * .44}em)`}}>px</span>
           </div>
 
         </Col>
