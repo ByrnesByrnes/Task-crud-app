@@ -1,19 +1,14 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { Card, Col, Tabs } from 'antd';
 import { FormatPainterOutlined, SettingOutlined } from '@ant-design/icons'
 import { Setting, Design } from '../'
 
 
-const Menu = React.forwardRef((props, ref) => {
+const Menu = forwardRef((props, ref) => {
   const { TabPane } = Tabs
 
-
-  const svgStyles = {
-    fontSize: '1.5rem',
-    width: '100%',
-  }
-  
   return (
+    // grabs ref to allow click outside to function
     <div ref={ref}>
       <Card
         className={`menu ${props.toggle ? 'active' : ''}`}
@@ -24,7 +19,6 @@ const Menu = React.forwardRef((props, ref) => {
         bodyStyle={{
           padding: '0'
         }}
-
       >
         <Tabs
           centered
@@ -33,20 +27,18 @@ const Menu = React.forwardRef((props, ref) => {
             color: '#BDBDBD',
           }}
         >
-          <TabPane tab={<SettingOutlined style={svgStyles} />} key="1">
-            <Col span={22} offset={1}>
-              <Setting task={props.task}/>
+          <TabPane tab={<SettingOutlined style={props.svgStyles} />} key="1">
+            <Col span={22} offset={1} >
+              <Setting task={props.task} />
             </Col>
           </TabPane>
 
-
-          <TabPane tab={<FormatPainterOutlined style={svgStyles} />} key="2">
-            <Col offset={1}>
-              <Design task={props.task}/>
+          <TabPane tab={<FormatPainterOutlined style={props.svgStyles} />} key="2">
+            {/* In Mock up design is offset by 3 pixels */}
+            <Col span={21} offset={1}>
+              <Design task={props.task} />
             </Col>
           </TabPane>
-
-
         </Tabs>
       </Card>
     </div>

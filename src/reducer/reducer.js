@@ -1,4 +1,5 @@
 export const state = {
+  // default state of task
   tasks: [
     {
       id: 1,
@@ -15,25 +16,23 @@ export const state = {
 }
 
 export const reducer = (state, action) => {
-
+  // finds the index of task
   const index = state.tasks.findIndex(item => item.id === action.payload.id)
 
   switch (action.type) {
     case 'COPY_TASK': 
-  
       return state = {
         ...state, tasks: [...state.tasks,{
             ...action.payload,
             id: Math.floor(Math.random() * 100000)
           }]
       }
-      // id: state.tasks.length >= 1 ? state.tasks[0].id + 1: 1
 
     case 'EDIT_TASK':
-      const taskk = [...state.tasks]
+      const editTask = [...state.tasks]
 
-      taskk[index] = {...action.payload}
-      return state = { ...state, tasks: [...taskk] }
+      editTask[index] = {...action.payload}
+      return state = { ...state, tasks: [...editTask] }
 
     case 'DELETE_TASK':
       const newTasks = [...state.tasks]

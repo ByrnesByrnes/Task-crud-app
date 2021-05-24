@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Input, Col } from 'antd'
+import { Input, Col, Typography } from 'antd'
 import { StateContext } from '../../context/context'
 
 export default function Setting({ task }) {
@@ -9,6 +9,7 @@ export default function Setting({ task }) {
     description: ''
   })
 
+  const { Text } = Typography
   const { TextArea } = Input
 
   const inputStyles = {
@@ -25,12 +26,9 @@ export default function Setting({ task }) {
 
   // Rerender if value changes in task
   useEffect(() => {
-  
     dispatch({
       type: 'EDIT_TASK',
       payload: {
-        // hasss to do with this
-        
         title: editTask.title.length >= 0 ? editTask.title : '',
         description: editTask.description.length >= 0 ? editTask.description : '',
         ...editTask,
@@ -38,38 +36,23 @@ export default function Setting({ task }) {
     })
   }, [editTask, dispatch])
 
-  // Initial Render on page load
-  // useEffect(() => {
-  //   dispatch({
-  //     type: 'EDIT_TASK',
-  //     payload: {
-  //       ...task,
-  //       title: '',
-  //       description: ''
-  //     }
-  //   })
-  // }, [])
-
-  const { title, description } = editTask
-
-  console.log(task,'TASK SETTINGSSSSSSSSS')
-  console.log(title, 'editTask SETTING title')
-  console.log(description, 'editTask SETTINH DEScription')
   return (
     <Col span={24}>
-      <div className="input-box" style={inputBoxStyles}>
-        <label className="input-box__label">Title Text</label>
+      <Input.Group className="input-box" style={inputBoxStyles}>
+        <Text className="input-box__label">Title Text</Text>
         <Input
           placeholder="Enter custom title"
+          size="large"
           style={inputStyles}
           name="title"
           value={task.title}
           onChange={handleInput}
         />
-      </div>
-      <div className="input-box" style={inputBoxStyles}>
-        <label className="input-box__label">Body Text</label>
-        {/* adjust the bottom right adjuster it's different */}
+      </Input.Group>
+      <Input.Group className="input-box" style={inputBoxStyles}>
+        <Text className="input-box__label">Body Text</Text>
+
+        {/* Wrapper for  resize tool in textarea */}
         <div className="input-box__text-area-wrapper">
           <TextArea
             placeholder="Enter custom text"
@@ -80,7 +63,7 @@ export default function Setting({ task }) {
             onChange={handleInput}
           />
         </div>
-      </div>
+      </Input.Group>
     </Col>
   )
 };

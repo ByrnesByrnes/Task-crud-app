@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, Space } from 'antd';
+import { Card, Space, Typography } from 'antd';
 import {EditTwoTone, DeleteTwoTone, CopyTwoTone} from '@ant-design/icons'
 import { Menu } from '../'
 import { UseClickOutside} from '../../hooks/useClickOutside'
@@ -9,6 +9,9 @@ import { StateContext} from '../../context/context'
 export default function Task({task}) {
   const [toggle, setToggle] = useState(false)
   const [state, dispatch] = StateContext()
+
+
+  const { Text } = Typography
 
   const domNode = UseClickOutside(() => {
     setToggle(false)
@@ -30,7 +33,6 @@ export default function Task({task}) {
     })
   }
 
-
   const svgStyles= {
     fontSize: '1.5em', 
   }
@@ -41,8 +43,11 @@ export default function Task({task}) {
   }
 
   const descriptionStyles = {
+    fontFamily: `'Open Sans', sans-serif`,
+    lineHeight: '22px',
     fontSize: `${task.descriptionSize}px`,
-    color: task.descriptionColor.hex
+    color: task.descriptionColor.hex,
+
   }
   const cardStyles = {
     borderRadius: `${task.panelRadius}px`,
@@ -59,7 +64,7 @@ export default function Task({task}) {
       bordered={false}
       headStyle={{
         padding: 0,
-        margin: '1em 24px',
+        margin: '0 1.5em',
       }}
       style={cardStyles}
       extra={
@@ -74,8 +79,8 @@ export default function Task({task}) {
         
       }
     >
-      <p style={descriptionStyles} className="task__content">{task.description ? task.description : 'Custom body text'}</p>
-      <Menu toggle={toggle} ref={domNode} task={task}/>
+      <Text style={descriptionStyles}>{task.description ? task.description : 'Custom body text'}</Text>
+      <Menu toggle={toggle} ref={domNode} task={task} svgStyles={svgStyles}/>
     </Card>
   )
 };

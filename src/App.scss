@@ -20,7 +20,6 @@ h1 {
 
 // Header Styles
 .header {
-
   text-transform: uppercase;
   background-color: #fff;
   border-bottom: 1px solid #F2F2F2;
@@ -40,18 +39,16 @@ input {
     border-bottom: none;
   }
   &__input {
+    // allow user to see px in Design Component
     background-color: transparent;
   }
 }
 
 // Task Styles
 .task {
-  transition: .3s ease-in-out;
-
-  &__content {
-    font-family: 'Open Sans', sans-serif;
-    line-height: 22px;
-  }
+  transition-property: border, box-shadow;
+  transition-duration: .2s;
+  transition-timing-function: ease-in-out;
 
   & svg:hover.delete-disabled{
     cursor: auto;
@@ -82,7 +79,7 @@ input {
   font-size: 0.9375rem;
  
   &__label {
-    align-self: flex-start;
+   
     display: inline-block;
     padding-bottom: .54em;
     // 500 but 400 looks closer to the mock up
@@ -94,34 +91,17 @@ input {
   
   &__pixel {
     position: absolute;
-    bottom: .25em;
+    bottom: .5em;
     z-index: -1;
   }
 
   // for resize bottom right Textarea
   &__text-area-wrapper {
     position: relative;
-    height: 100%;
     overflow: hidden;
-    // &::before,
-    // &::after {
-    //   content: '';
-    //   position: absolute;
-    //   z-index: 10;
-    //   transform: rotate(135deg);
-    //   transform-origin: center;
-    //   border-bottom: 1px solid #BDBDBD;
-    
-    // }
-
-    // &::before {
-    //   width: 3%;
-    //   height: 20px;
-    //   background-color: blue;
-    //   bottom: -.2em;
-    //   right: .2em;
-    // }
-
+    & > textarea {
+      min-height: 115px;
+    }
     &::before,
     &::after {
       content: '';
@@ -136,13 +116,13 @@ input {
     &::before {
       width: 3%;
       bottom: .9em;
-      right: .7em;
+      right: .6em;
     }
 
     &::after {
       width: 1%;
       bottom: .75em; 
-      right: .78em;
+      right: .68em;
     }
   }
 }
@@ -150,8 +130,8 @@ input {
 //  -------------
 .pallet {
   position: relative;
-  height: 32px;
-  width: 32px;
+  height: 40px;
+  width: 40px;
   border: 4px solid #E0E0E0 ;
   border-radius: 4px;
   cursor: pointer;
@@ -175,7 +155,6 @@ input {
 
 //Override ant default styles
 .ant-tabs-tab {
-  display: flex;
   width: 175px;
 
   & > [role=tab] {
@@ -187,6 +166,10 @@ input {
   }
 }
 
+.ant-tabs-tab {
+  margin: 0 !important;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -195,4 +178,13 @@ input::-webkit-inner-spin-button {
 // remove resizer but still able to resize
 ::-webkit-resizer {
   display: none;
+}
+
+
+
+::-webkit-input-placeholder
+// ::-moz-placeholder,
+// :-ms-input-placeholder,
+{ /* Chrome/Opera/Safari */
+  color: rgba(0, 0, 0, 0.48) !important;
 }

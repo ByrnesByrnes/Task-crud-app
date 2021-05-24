@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { BlockPicker } from 'react-color';
 import { UseClickOutside } from '../../hooks/useClickOutside'
-import { Row, Col, Space, Input, Typography } from 'antd'
+import { Row, Col, Input, Typography } from 'antd'
 import { StateContext } from '../../context/context'
 
 
@@ -11,6 +11,7 @@ const titleStyles = {
   color: '#00A3FF',
   fontWeight: '400',
   fontSize: '1.125rem',
+  marginTop: '1.5em'
 }
 
 export default function DesignSub({
@@ -19,7 +20,7 @@ export default function DesignSub({
   const [state, dispatch] = StateContext()
   const [toggle, setToggle] = useState(false)
 
-  const { Title } = Typography
+  const { Title, Text } = Typography
   const { id } = task
 
   const inputStyles = {
@@ -28,7 +29,7 @@ export default function DesignSub({
 
   const domNode = UseClickOutside(() => {
     setToggle(false)
-    
+
   })
 
   // Rerender if value changes in task
@@ -44,32 +45,23 @@ export default function DesignSub({
     })
   }, [textSize, textColor])
 
-  useEffect(() => {
-    dispatch({
-      type: 'EDIT_TASK',
-      payload: {
-        ...task
-      }
-    })
-  }, [])
- 
   return (
-    // In Mock up design is offset by 3 pixels
-    <Col 
-      span={22} 
+
+    <Col
+      span={24}
       className="design"
       style={{
-        marginBottom: '1.5em',
         paddingBottom: '1.5em'
       }}
     >
-      <Title level={3}  style={titleStyles}>{name}</Title>
+      <Title level={3} style={titleStyles}>{name}</Title>
       <Row>
-        <Col span={13}>
-          <div className="input-box" style={{marginRight: '1.5em'}}>
-            <label className="input-box__label">{subtitle}</label>
+        <Col span={14}>
+          <Input.Group className="input-box" style={{ paddingRight: '1.5em' }}>
+            <Text className="input-box__label">{subtitle}</Text>
             <Input
               className="design__input"
+              size="large"
               type="number"
               placeholder=""
               name={keyValue}
@@ -77,14 +69,13 @@ export default function DesignSub({
               style={inputStyles}
               onChange={handleChange}
             />
-            <span className="input-box__pixel" style={{left: `calc(1em + ${Number(textSize?.toString().length) * .44}em)`}}>px</span>
-          </div>
+            <span className="input-box__pixel" style={{ left: `calc(1em + ${Number(textSize.toString().length) * .525}em)` }}>px</span>
+          </Input.Group>
 
         </Col>
         <Col span={6}>
-          <div className="input-box">
-            <label className="input-box__label">Color</label>
-
+          <Input.Group className="input-box">
+            <Text className="input-box__label">Color</Text>
             <div onClick={() => setToggle(true)} style={{ backgroundColor: textColor.hex }} className="pallet">
 
               <div ref={domNode} className={`pallet__picker ${toggle ? 'display' : ''}`}>
@@ -94,7 +85,7 @@ export default function DesignSub({
                 />
               </div>
             </div>
-          </div>
+          </Input.Group>
         </Col>
       </Row>
     </Col>
