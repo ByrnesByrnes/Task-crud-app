@@ -14,7 +14,7 @@ const Menu = forwardRef((props, ref) => {
         className={`menu ${props.toggle ? 'active' : ''}`}
         bordered={false}
         style={{
-          borderTopLeftRadius: '16px'
+          borderTopLeftRadius: '16px',
         }}
         bodyStyle={{
           padding: '0'

@@ -3,7 +3,7 @@ import { BlockPicker } from 'react-color';
 import { UseClickOutside } from '../../hooks/useClickOutside'
 import { Row, Col, Input, Typography } from 'antd'
 import { StateContext } from '../../context/context'
-
+import { InputBox} from '../'
 
 
 const titleStyles = {
@@ -11,7 +11,7 @@ const titleStyles = {
   color: '#00A3FF',
   fontWeight: '400',
   fontSize: '1.125rem',
-  marginTop: '1.5em'
+  marginTop: '1.2em'
 }
 
 export default function DesignSub({
@@ -22,10 +22,6 @@ export default function DesignSub({
 
   const { Title, Text } = Typography
   const { id } = task
-
-  const inputStyles = {
-    borderRadius: '4px',
-  }
 
   const domNode = UseClickOutside(() => {
     setToggle(false)
@@ -50,28 +46,18 @@ export default function DesignSub({
     <Col
       span={24}
       className="design"
-      style={{
-        paddingBottom: '1.5em'
-      }}
     >
       <Title level={3} style={titleStyles}>{name}</Title>
       <Row>
-        <Col span={14}>
-          <Input.Group className="input-box" style={{ paddingRight: '1.5em' }}>
-            <Text className="input-box__label">{subtitle}</Text>
-            <Input
-              className="design__input"
-              size="large"
-              type="number"
-              placeholder=""
-              name={keyValue}
-              value={textSize}
-              style={inputStyles}
-              onChange={handleChange}
-            />
-            <span className="input-box__pixel" style={{ left: `calc(1em + ${Number(textSize.toString().length) * .525}em)` }}>px</span>
-          </Input.Group>
-
+        <Col span={14} style={{paddingRight: '1.5em'}}>
+        <InputBox 
+          subtitle={subtitle}
+          keyValue={keyValue}
+          inputValue={textSize}
+          inputType="number"
+          handleChange={handleChange}
+          showPx={true}
+        />
         </Col>
         <Col span={6}>
           <Input.Group className="input-box">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Input, Col, Typography } from 'antd'
+import { Col } from 'antd'
 import { StateContext } from '../../context/context'
+import { InputBox } from '../'
 
 export default function Setting({ task }) {
   const [state, dispatch] = StateContext()
@@ -9,18 +10,7 @@ export default function Setting({ task }) {
     description: ''
   })
 
-  const { Text } = Typography
-  const { TextArea } = Input
-
-  const inputStyles = {
-    borderRadius: '4px'
-  }
-
-  const inputBoxStyles = {
-    marginTop: '1.5em'
-  }
-
-  const handleInput = e => {
+  const handleChange = e => {
     setEditTask({ ...editTask, ...task, [e.target.name]: e.target.value })
   }
 
@@ -37,33 +27,64 @@ export default function Setting({ task }) {
   }, [editTask, dispatch])
 
   return (
-    <Col span={24}>
-      <Input.Group className="input-box" style={inputBoxStyles}>
-        <Text className="input-box__label">Title Text</Text>
-        <Input
-          placeholder="Enter custom title"
-          size="large"
-          style={inputStyles}
-          name="title"
-          value={task.title}
-          onChange={handleInput}
-        />
-      </Input.Group>
-      <Input.Group className="input-box" style={inputBoxStyles}>
-        <Text className="input-box__label">Body Text</Text>
-
-        {/* Wrapper for  resize tool in textarea */}
-        <div className="input-box__text-area-wrapper">
-          <TextArea
-            placeholder="Enter custom text"
-            size="large"
-            style={inputStyles}
-            name="description"
-            value={task.description}
-            onChange={handleInput}
-          />
-        </div>
-      </Input.Group>
+    <Col span={24} style={{marginTop: '1.35em'}}>
+      <InputBox
+        subtitle="title text"
+        keyValue="title"
+        placeholder="Enter custom title"
+        handleChange={handleChange}
+      />
+      <InputBox
+        subtitle="body text"
+        keyValue="description"
+        placeholder="Enter custom title"
+        handleChange={handleChange}
+        textBox={true}
+      />
     </Col>
   )
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* <Input.Group className="input-box" style={inputBoxStyles}>
+  <Text className="input-box__label">Title Text</Text>
+  <Input
+    placeholder="Enter custom title"
+    size="large"
+    style={inputStyles}
+    name="title"
+    value={task.title}
+    onChange={handleChange}
+  />
+</Input.Group> */
+/* <Input.Group className="input-box" style={inputBoxStyles}>
+  <Text className="input-box__label">Body Text</Text>
+
+  Wrapper for  resize tool in textarea
+  <div className="input-box__text-area-wrapper">
+    <TextArea
+      placeholder="Enter custom text"
+      size="large"
+      style={inputStyles}
+      name="description"
+      value={task.description}
+      onChange={handleChange}
+    />
+  </div>
+</Input.Group> */

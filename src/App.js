@@ -3,8 +3,9 @@ import { Header, Task } from './components'
 import { Layout, Row, Col } from 'antd'
 import { StateContextConsumer } from './context/context'
 
-function App() {
 
+
+function App() {
   return (
     <Layout style={{ backgroundColor: 'unset' }}>
       <Header />
@@ -20,7 +21,6 @@ function App() {
           </StateContextConsumer>
         </Col>
       </Row>
-
     </Layout>
   );
 }
