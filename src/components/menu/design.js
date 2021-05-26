@@ -37,7 +37,7 @@ export default function Design({ task }) {
     <div style={{
       height: '100vh',
       width: '100%',
-      maxWidth: '350px'
+      maxWidth: '350px',
     }}>
       <DesignSub
         name="Title"

@@ -27,17 +27,23 @@ export default function Setting({ task }) {
   }, [editTask, dispatch])
 
   return (
-    <Col span={24} style={{marginTop: '1.35em'}}>
+    <Col span={24} style={{
+      marginTop: '1.35em',
+    }}>
       <InputBox
         subtitle="title text"
         keyValue="title"
         placeholder="Enter custom title"
+
+        inputValue={task.title} // forgot to add the input Values
         handleChange={handleChange}
       />
       <InputBox
         subtitle="body text"
         keyValue="description"
         placeholder="Enter custom title"
+       
+        inputValue={task.description} // forgot to add the input Values
         handleChange={handleChange}
         textBox={true}
       />

@@ -20,7 +20,7 @@ export default function InputBox({
 
 
   const { TextArea } = Input
-  const { Text, } = Typography
+  const { Text } = Typography
 
   return (
     <Input.Group className="input-box">
